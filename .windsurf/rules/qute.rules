@@ -1,0 +1,3 @@
+- Use Qute for SSR templates; avoid stateful/render logic in templates.
+- Write Qute in templates files instead of in resources or controllers.
+- Use Qute's data binding to pass data to templates.

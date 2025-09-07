@@ -1,0 +1,24 @@
+# Windsurf Development Rules
+
+## Kotlin Style
+- Use data-oriented design: prefer data classes, value classes, and ADTs.
+- All entity and model properties must be `val` unless mutable state is required for JPA/Hibernate integration.
+- Use sealed classes for modeling domain hierarchies and events.
+- Avoid mutable properties and collections within models and domain classes.
+
+## Panache ORM Integration
+- Extend PanacheEntity or PanacheEntityBase for database entities. Place query logic in companion objects or repositories.
+- Favor constructor initialization of entity properties; minimize use of setters.
+- All database models should be immutable unless unavoidable.
+
+## Testing
+- Every feature and data transformation must have unit tests.
+- Repository and entity logic must have isolated integration tests with Postgres.
+- Use mocks/stubs for any external/database dependencies in unit tests.
+
+## Templates
+- Use Qute for SSR templates; avoid stateful/render logic in templates.
+
+## General Practices
+- Adhere to idiomatic Kotlin design and minimize boilerplate.
+- Document any mutable state rationale in code comments.
