@@ -1,0 +1,62 @@
+{@java.util.List<com.sthompson.product.Product> products}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 20px auto;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        thead {
+            background-color: #4695EB;
+            color: white;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Products</h1>
+    {#if products.isEmpty}
+        <p>No products found.</p>
+    {#else}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Weight (g)</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#for product in products}
+            <tr>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.categoryName}</td>
+                <td>{product.weightInGrams}</td>
+                <td>${product.priceAmount}</td>
+            </tr>
+            {/for}
+        </tbody>
+    </table>
+    {/if}
+</body>
+</html>

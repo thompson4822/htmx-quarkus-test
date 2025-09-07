@@ -1,3 +1,4 @@
 - Use Qute for SSR templates; avoid stateful/render logic in templates.
 - Write Qute in templates files instead of in resources or controllers.
 - Use Qute's data binding to pass data to templates.
+- For Kotlin value classes, use Template Extension Methods to expose their properties to the template.
