@@ -1,0 +1,4 @@
+- Extend PanacheEntity or PanacheEntityBase for database entities. Place query logic in companion objects or repositories.
+- Favor constructor initialization of entity properties; minimize use of setters.
+- To preserve domain model immutability, create a separate, mutable entity class for persistence (e.g., 
+`ProductEntity`). Use a dedicated mapper to convert between the pure domain model and the persistence entity.

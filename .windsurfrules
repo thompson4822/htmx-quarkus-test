@@ -6,11 +6,6 @@
 - Use sealed classes for modeling domain hierarchies and events.
 - Avoid mutable properties and collections within models and domain classes.
 
-## Panache ORM Integration
-- Extend PanacheEntity or PanacheEntityBase for database entities. Place query logic in companion objects or repositories.
-- Favor constructor initialization of entity properties; minimize use of setters.
-- All database models should be immutable unless unavoidable.
-
 ## Testing
 - Every feature and data transformation must have unit tests.
 - Repository and entity logic must have isolated integration tests with Postgres.
@@ -22,3 +17,4 @@
 ## General Practices
 - Adhere to idiomatic Kotlin design and minimize boilerplate.
 - Document any mutable state rationale in code comments.
+- Structure packages by feature (e.g., com.company.product) rather than by layer (e.g., com.company.entities) to promote high cohesion and modularity.
