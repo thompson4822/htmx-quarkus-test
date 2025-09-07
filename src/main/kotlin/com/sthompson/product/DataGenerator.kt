@@ -21,7 +21,7 @@ class DataGenerator {
                 description = faker.lorem().sentence(),
                 category = faker.commerce().department(),
                 weight = BigDecimal.valueOf(faker.number().randomDouble(2, 10, 1000)),
-                unitPrice = BigDecimal(faker.commerce().price())
+                unitPrice = BigDecimal(faker.commerce().price(0.0, 1000.0))
             )
         }
         ProductEntity.persist(products)

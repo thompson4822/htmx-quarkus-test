@@ -6,10 +6,18 @@ import java.math.BigDecimal
 value class Category(val name: String)
 
 @JvmInline
-value class Weight(val grams: BigDecimal)
+value class Weight(val grams: BigDecimal) {
+    init {
+        require(grams >= BigDecimal.ZERO) { "Weight cannot be negative." }
+    }
+}
 
 @JvmInline
-value class UnitPrice(val amount: BigDecimal)
+value class UnitPrice(val amount: BigDecimal) {
+    init {
+        require(amount >= BigDecimal.ZERO) { "Unit price cannot be negative." }
+    }
+}
 
 // This is our pure, immutable domain object.
 data class Product(
