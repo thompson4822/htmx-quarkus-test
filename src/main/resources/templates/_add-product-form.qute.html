@@ -1,0 +1,25 @@
+<form hx-post="/products" hx-target="#product-table-body" hx-swap="beforeend" hx-on::after-request="if(event.detail.successful) this.reset()" class="add-product-form">
+    <div class="form-group form-group-name">
+        <label for="name">Product Name</label>
+        <input id="name" type="text" name="name" required>
+    </div>
+    <div class="form-group form-group-description">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-group form-group-category">
+        <label for="category">Category</label>
+        <input id="category" type="text" name="category" required>
+    </div>
+    <div class="form-group form-group-weight">
+        <label for="weight">Weight (g)</label>
+        <input id="weight" type="number" step="0.01" name="weight" required>
+    </div>
+    <div class="form-group form-group-price">
+        <label for="price">Price</label>
+        <input id="price" type="number" step="0.01" name="unitPrice" required>
+    </div>
+    <div class="form-group-button">
+        <button type="submit">Add Product</button>
+    </div>
+</form>

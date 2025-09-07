@@ -23,5 +23,8 @@ class ProductEntity(
 
     companion object : PanacheCompanion<ProductEntity> {
         fun findByCategory(category: String) = list("category", category)
+
+        fun findByNameOrDescription(query: String) = 
+            list("lower(name) like ?1 or lower(description) like ?1", "%${query.lowercase()}%" )
     }
 }

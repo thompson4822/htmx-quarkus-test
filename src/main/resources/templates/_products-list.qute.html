@@ -1,0 +1,29 @@
+{@java.util.List<com.sthompson.product.Product> products}
+<div id="product-list">
+    {#if products.isEmpty}
+        <p>No products found.</p>
+    {#else}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Weight (g)</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="product-table-body">
+            {#for product in products}
+            <tr>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.categoryName}</td>
+                <td>{product.weightInGrams}</td>
+                <td>${product.priceAmount}</td>
+            </tr>
+            {/for}
+        </tbody>
+    </table>
+    {/if}
+</div>

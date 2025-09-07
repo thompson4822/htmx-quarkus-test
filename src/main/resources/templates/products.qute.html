@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Product List</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,35 +29,92 @@
         tbody tr:nth-child(even) {
             background-color: #f5f5f5;
         }
+        .htmx-indicator{
+            display:none;
+        }
+        .add-button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-product-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+            grid-template-areas:
+                "name name"
+                "description description"
+                "category category"
+                "weight price"
+                "button button";
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-name { grid-area: name; }
+        .form-group-description { grid-area: description; }
+        .form-group-category { grid-area: category; }
+        .form-group-weight { grid-area: weight; }
+        .form-group-price { grid-area: price; }
+        .form-group-button { grid-area: button; }
+
+        .add-product-form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .add-product-form input,
+        .add-product-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .add-product-form button {
+            width: auto;
+            padding: 10px 20px;
+            background-color: #4695EB;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            justify-self: start;
+        }
     </style>
 </head>
 <body>
     <h1>Our Products</h1>
-    {#if products.isEmpty}
-        <p>No products found.</p>
-    {#else}
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Weight (g)</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#for product in products}
-            <tr>
-                <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.categoryName}</td>
-                <td>{product.weightInGrams}</td>
-                <td>${product.priceAmount}</td>
-            </tr>
-            {/for}
-        </tbody>
-    </table>
-    {/if}
+
+    <button hx-get="/products/add-form" hx-target="#add-product-form-container" hx-swap="innerHTML" class="add-button">Add New Product</button>
+    <div id="add-product-form-container"></div>
+
+    <input type="search"
+           name="search"
+           class="form-control"
+           placeholder="Search products..."
+           hx-get="/products"
+           hx-trigger="keyup changed delay:500ms"
+           hx-target="#product-list"
+           hx-swap="outerHTML"
+           hx-indicator="#spinner">
+    <span id="spinner" class="htmx-indicator">Searching...</span>
+
+    {#include _products-list.qute.html}
 </body>
 </html>

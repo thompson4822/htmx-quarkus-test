@@ -1,0 +1,2 @@
+- HTMX Out-of-Band Swaps: When performing Out-of-Band (OOB) swaps, ensure the server returns a single, valid HTML fragment. Wrap multiple OOB elements in an inert container (e.g., a <div>) to prevent parsing errors in the browser.
+- Client-Side Form Resets: For a better user experience, automatically reset forms after a successful submission using the hx-on::after-request attribute.

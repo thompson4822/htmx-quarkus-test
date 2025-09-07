@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add a New Product</h1>
+    <form hx-post="/products" hx-target="#new-product-row" hx-swap="beforebegin">
+        <input type="text" name="name" placeholder="Product Name" required>
+        <textarea name="description" placeholder="Product Description" required></textarea>
+        <input type="text" name="category" placeholder="Category" required>
+        <input type="number" step="0.01" name="weight" placeholder="Weight (g)" required>
+        <input type="number" step="0.01" name="unitPrice" placeholder="Price" required>
+        <button type="submit">Add Product</button>
+    </form>
+    <div id="new-product-row"></div>
+    <p><a href="/products">Back to Product List</a></p>
+</body>
+</html>
