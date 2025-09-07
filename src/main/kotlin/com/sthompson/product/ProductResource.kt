@@ -55,7 +55,7 @@ class ProductResource {
         }
         val domainProducts = products.map { productMapper.toDomain(it) }
 
-        val template = if (hxRequest != null) {
+        val template = if (hxRequest == "true") {
             productsListTemplate
         } else {
             productsTemplate
@@ -78,7 +78,6 @@ class ProductResource {
     }
 
     @POST
-    @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
     fun addProduct(
@@ -86,8 +85,9 @@ class ProductResource {
         @FormParam("description") description: String,
         @FormParam("category") category: String,
         @FormParam("weight") weight: BigDecimal,
-        @FormParam("unitPrice") unitPrice: BigDecimal
-    ): TemplateInstance {
+        @FormParam("unitPrice") unitPrice: BigDecimal,
+        @HeaderParam("HX-Request") hxRequest: String?
+    ): Response {
         val newProductEntity = ProductEntity(
             name = name,
             description = description,
@@ -96,7 +96,17 @@ class ProductResource {
             unitPrice = unitPrice
         )
         ProductEntity.persist(newProductEntity)
-        val domainProduct = productMapper.toDomain(newProductEntity)
-        return productRowTemplate.data("product", domainProduct)
+
+        if (hxRequest == "true") {
+            val domainProduct = productMapper.toDomain(newProductEntity)
+            val newRowContent = productRowTemplate.data("product", domainProduct).render()
+            // Wrap the row in a table structure to make it a valid HTML snippet for the parser.
+            // The hx-swap-oob attribute on the tbody will cause its *contents* to be swapped into the correct place.
+            val newRowOob = "<table><tbody hx-swap-oob=\"beforeend:#product-table-body\">$newRowContent</tbody></table>"
+            val emptyFormHtml = "<div id=\"add-product-form-container\" hx-swap-oob=\"true\"></div>"
+            return Response.ok(newRowOob + emptyFormHtml, MediaType.TEXT_HTML).build()
+        }
+
+        return Response.seeOther(URI.create("/products")).build()
     }
 }

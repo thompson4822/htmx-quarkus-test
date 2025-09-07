@@ -1,7 +1,9 @@
 package com.sthompson.product
 
 import io.quarkus.test.junit.QuarkusTest
+import io.restassured.RestAssured
 import io.restassured.RestAssured.given
+import io.restassured.config.RedirectConfig.redirectConfig
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.not
 import io.restassured.http.ContentType
@@ -80,7 +82,7 @@ class ProductResourceIT {
 
     @Test
     fun `should add a new product and redirect for standard post`() {
-        given()
+        given().config(RestAssured.config().redirect(redirectConfig().followRedirects(false)))
             .contentType(ContentType.URLENC)
             .formParam("name", "New Gadget")
             .formParam("description", "A shiny new gadget.")
@@ -106,7 +108,9 @@ class ProductResourceIT {
             .`when`().post("/products")
             .then()
             .statusCode(200)
+            .body(containsString("<tbody hx-swap-oob=\"beforeend:#product-table-body\">"))
             .body(containsString("<td>HTMX Gadget</td>"))
+            .body(containsString("<div id=\"add-product-form-container\" hx-swap-oob=\"true\"></div>"))
             .body(not(containsString("<!DOCTYPE html>")))
     }
 }

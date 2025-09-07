@@ -1,4 +1,4 @@
-<form hx-post="/products" hx-target="#product-table-body" hx-swap="beforeend" hx-on::after-request="if(event.detail.successful) this.reset()" class="add-product-form">
+<form hx-post="/products" class="add-product-form">
     <div class="form-group form-group-name">
         <label for="name">Product Name</label>
         <input id="name" type="text" name="name" required>
