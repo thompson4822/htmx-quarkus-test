@@ -22,7 +22,7 @@ import java.net.URI
 class ProductResource {
 
     @Inject
-    @Location("products/products.qute.html")
+    @Location("products/products.html")
     lateinit var productsTemplate: Template
 
     @Inject
