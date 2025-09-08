@@ -30,10 +30,6 @@ class ProductResource {
     lateinit var productsListTemplate: Template
 
     @Inject
-    @Location("products/add-product.qute.html")
-    lateinit var addProductTemplate: Template
-
-    @Inject
     @Location("products/_product-row.qute.html")
     lateinit var productRowTemplate: Template
 
@@ -61,13 +57,6 @@ class ProductResource {
             productsTemplate
         }
         return template.data("products", domainProducts)
-    }
-
-    @GET
-    @Path("/new")
-    @Produces(MediaType.TEXT_HTML)
-    fun addProductForm(): TemplateInstance {
-        return addProductTemplate.instance()
     }
 
     @GET
