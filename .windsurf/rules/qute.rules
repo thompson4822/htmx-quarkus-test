@@ -2,3 +2,5 @@
 - Write Qute in templates files instead of in resources or controllers.
 - Use Qute's data binding to pass data to templates.
 - For Kotlin value classes, use Template Extension Methods to expose their properties to the template.
+- Organize Qute templates into subdirectories that mirror the feature-based package structure. For example, templates related to the com.sthompson.product feature should be placed in src/main/resources/templates/products/.
+- Extract CSS from Qute templates into separate .css files located in src/main/resources/META-INF/resources/css/. Avoid large inline <style> blocks to improve maintainability and enable browser caching.

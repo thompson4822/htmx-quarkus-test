@@ -22,23 +22,23 @@ import java.net.URI
 class ProductResource {
 
     @Inject
-    @Location("products.qute.html")
+    @Location("products/products.qute.html")
     lateinit var productsTemplate: Template
 
     @Inject
-    @Location("_products-list.qute.html")
+    @Location("products/_products-list.qute.html")
     lateinit var productsListTemplate: Template
 
     @Inject
-    @Location("add-product.qute.html")
+    @Location("products/add-product.qute.html")
     lateinit var addProductTemplate: Template
 
     @Inject
-    @Location("_product-row.qute.html")
+    @Location("products/_product-row.qute.html")
     lateinit var productRowTemplate: Template
 
     @Inject
-    @Location("_add-product-form.qute.html")
+    @Location("products/_add-product-form.qute.html")
     lateinit var addProductFormTemplate: Template
 
     @Inject
