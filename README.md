@@ -1,87 +1,43 @@
-# htmx-test
+# Quarkus HTMX Demo: Product Management App
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project is a demonstration of how to build a modern, server-side rendered web application using Quarkus, Kotlin, and HTMX. It showcases a simple product management interface where users can view, search, and add products dynamically without writing complex frontend JavaScript.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Core Technologies
 
-## Running the application in dev mode
+*   **Backend**: [Quarkus](https://quarkus.io/) with [Kotlin](https://kotlinlang.org/)
+*   **Frontend**: [HTMX](https://htmx.org/) for dynamic, server-rendered partials
+*   **Templating**: [Qute](https://quarkus.io/guides/qute) for type-safe server-side templates
+*   **Database & ORM**: [PostgreSQL](https://www.postgresql.org/) with [Hibernate ORM and Panache for Kotlin](https://quarkus.io/guides/hibernate-orm-panache-kotlin)
+*   **Build Tool**: [Maven](https://maven.apache.org/)
 
-You can run your application in dev mode that enables live coding using:
+## Features
 
-```shell script
-./mvnw quarkus:dev
-```
+*   **Product List**: Displays a list of products from the database.
+*   **Live Search**: Search for products by name or description with real-time updates.
+*   **Add Products**: Add new products to the list via a dynamic form.
+*   **Dynamic UI**: All interactions are handled via HTMX, which fetches HTML fragments from the server, minimizing client-side state and complexity.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## Key Architectural Concepts
 
-## Packaging and running the application
+This project follows several key architectural principles to ensure it is maintainable and scalable:
 
-The application can be packaged using:
+*   **Feature-Based Packages**: Code is organized by feature (e.g., `com.sthompson.product`) rather than by layer to promote high cohesion.
+*   **Data-Oriented Design**: Uses Kotlin's `data class` and `value class` to create immutable, type-safe domain models.
+*   **HTMX for Interactivity**: Leverages HTMX to enhance standard server-rendered HTML, creating a dynamic user experience without a heavy JavaScript framework.
+*   **Documented Fragment API**: All JAX-RS endpoints that serve HTMX fragments are documented using a custom KDoc standard to clearly define their triggers, targets, and swap behaviors.
 
-```shell script
-./mvnw package
-```
+## Running the Application in Dev Mode
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+To run the application in development mode, which enables live-reloading:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+1.  **Start the database**: This project expects a PostgreSQL database to be running. You can use Docker to start one:
+    ```shell
+    docker run --rm --name quarkus-test-db -e POSTGRES_USER=quarkus -e POSTGRES_PASSWORD=quarkus -e POSTGRES_DB=quarkus -p 5432:5432 postgres:13
+    ```
+2.  **Run the application**:
+    ```shell
+    ./mvnw quarkus:dev
+    ```
+3.  **Access the application**: Open your browser and navigate to `http://localhost:8080/products`.
 
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/htmx-test-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- Hibernate ORM with Panache and Kotlin ([guide](https://quarkus.io/guides/hibernate-orm-panache-kotlin)): Define your persistent model in Hibernate ORM with Panache
-- Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
-- Qute ([guide](https://quarkus.io/guides/qute)): Offer templating support for web, email, etc in a build time, type-safe way
-- REST Qute ([guide](https://quarkus.io/guides/qute-reference#rest_integration)): Qute integration for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-[Related Hibernate with Panache in Kotlin section...](https://quarkus.io/guides/hibernate-orm-panache-kotlin)
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-
-### REST Qute
-
-Create your web page using Quarkus REST and Qute
-
-[Related guide section...](https://quarkus.io/guides/qute#type-safe-templates)
+> **_NOTE:_** Quarkus also provides a Dev UI, which is available in dev mode only at `http://localhost:8080/q/dev/`.
