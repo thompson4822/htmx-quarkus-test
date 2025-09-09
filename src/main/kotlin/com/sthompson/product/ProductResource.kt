@@ -40,6 +40,20 @@ class ProductResource {
     @Inject
     lateinit var productMapper: ProductMapper
 
+    /**
+     * Serves the main products page or the product list fragment.
+     *
+     * When accessed via a standard browser request, it renders the full `products.html` page,
+     * including the initial list of all products.
+     * When accessed via an HTMX request, it returns only the `_products-list.qute.html` fragment,
+     * which contains the filtered or complete list of products.
+     *
+     * HTMX Fragment Details:
+     * @htmx-trigger `load` on `#product-list`, and `keyup changed delay:500ms` on the search input.
+     * @htmx-target `#product-list`
+     * @htmx-swap `outerHTML`
+     * @htmx-indicator `#spinner`
+     */
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Transactional
@@ -59,6 +73,15 @@ class ProductResource {
         return template.data("products", domainProducts)
     }
 
+    /**
+     * HTMX Fragment: Renders the 'Add New Product' form.
+     *
+     * This fragment provides the HTML form for creating a new product.
+     *
+     * @htmx-trigger click on the 'Add New Product' button.
+     * @htmx-target #add-product-form-container
+     * @htmx-swap innerHTML
+     */
     @GET
     @Path("/add-form")
     @Produces(MediaType.TEXT_HTML)
@@ -66,6 +89,17 @@ class ProductResource {
         return addProductFormTemplate.instance()
     }
 
+    /**
+     * Processes the submission of the new product form.
+     *
+     * For HTMX requests, this endpoint returns an Out-of-Band (OOB) swap response that
+     * simultaneously appends the new product row to the table and clears the form container.
+     * For standard form submissions, it redirects to the main products page.
+     *
+     * HTMX Fragment Details:
+     * @htmx-trigger submit on the add product form.
+     * @htmx-swap Out-of-Band: `beforeend` for `#product-table-body` and `innerHTML` for `#add-product-form-container`.
+     */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
