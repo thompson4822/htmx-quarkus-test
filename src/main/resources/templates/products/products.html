@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <title>Product List</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link rel="stylesheet" href="/css/products.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <h1>Our Products</h1>
+<body class="p-8 bg-base-200">
+    <div class="container mx-auto">
+        <h1 class="text-4xl font-bold mb-4">Our Products</h1>
 
-    <button hx-get="/products/add-form" hx-target="#add-product-form-container" hx-swap="innerHTML" class="add-button">Add New Product</button>
-    <div id="add-product-form-container"></div>
+        <button hx-get="/products/add-form" hx-target="#add-product-form-container" hx-swap="innerHTML" class="btn btn-primary mb-4">Add New Product</button>
+        <div id="add-product-form-container" class="mb-4"></div>
 
-    <input type="search"
-           name="search"
-           class="form-control"
-           placeholder="Search products..."
-           hx-get="/products"
-           hx-trigger="keyup changed delay:500ms"
-           hx-target="#product-list"
-           hx-swap="outerHTML"
-           hx-indicator="#spinner">
-    <span id="spinner" class="htmx-indicator">Searching...</span>
+        <div class="mb-4">
+            <input type="search"
+                   name="search"
+                   class="input input-bordered w-full max-w-xs"
+                   placeholder="Search products..."
+                   hx-get="/products"
+                   hx-trigger="keyup changed delay:500ms"
+                   hx-target="#product-list"
+                   hx-swap="outerHTML"
+                   hx-indicator="#spinner">
+            <span id="spinner" class="htmx-indicator loading loading-spinner ml-2">Searching...</span>
+        </div>
 
-    {#include products/_products-list.qute.html}
+        {#include products/_products-list.qute.html}
+    </div>
 </body>
 </html>
