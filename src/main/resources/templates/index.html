@@ -5,61 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello {name ?: "HTMX User"}</title>
     <script src="https://unpkg.com/htmx.org@2.0.3" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9f7ef;
-            border-radius: 4px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>Hello <b>{name ?: "HTMX User"}</b></h1>
-        
-        <p>Welcome to the HTMX with Quarkus demo. This page demonstrates how to use HTMX with Quarkus and Qute templates.</p>
-        
-        <button hx-get="/hello" hx-target="#result">
-            Click me for a greeting!
-        </button>
-        
-        <div id="result">
-            <!-- Response will be loaded here -->
-        </div>
-        
-        <hr>
-        
-        <h2>Dynamic Content Loading</h2>
-        <button hx-get="/time" hx-target="#time-result" hx-swap="innerHTML">
-            Get Current Time
-        </button>
-        <div id="time-result">
-            <!-- Time will be displayed here -->
+<body class="p-8 bg-base-200">
+    <div class="card bg-base-100 shadow-xl max-w-2xl mx-auto">
+        <div class="card-body">
+            <h1 class="card-title text-4xl">Hello <b>{name ?: "HTMX User"}</b></h1>
+            
+            <p>Welcome to the HTMX with Quarkus demo. This page demonstrates how to use HTMX with Quarkus and Qute templates.</p>
+            
+            <div class="card-actions justify-start">
+                <button class="btn btn-primary" hx-get="/hello" hx-target="#result">
+                    Click me for a greeting!
+                </button>
+            </div>
+            
+            <div id="result" class="mt-4 p-4 bg-base-200 rounded-box min-h-12">
+                <!-- Response will be loaded here -->
+            </div>
+            
+            <div class="divider"></div>
+            
+            <h2 class="card-title">Dynamic Content Loading</h2>
+            <div class="card-actions justify-start">
+                <button class="btn btn-secondary" hx-get="/time" hx-target="#time-result" hx-swap="innerHTML">
+                    Get Current Time
+                </button>
+            </div>
+            <div id="time-result" class="mt-4 p-4 bg-base-200 rounded-box min-h-12">
+                <!-- Time will be displayed here -->
+            </div>
         </div>
     </div>
 </body>
