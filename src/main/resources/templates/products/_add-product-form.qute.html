@@ -1,25 +1,35 @@
-<form hx-post="/products" class="add-product-form">
-    <div class="form-group form-group-name">
-        <label for="name">Product Name</label>
-        <input id="name" type="text" name="name" required>
+<form hx-post="/products" class="add-product-form space-y-4">
+    <div class="form-control">
+        <label class="label" for="name">
+            <span class="label-text">Product Name</span>
+        </label>
+        <input id="name" type="text" name="name" required class="input input-bordered"/>
     </div>
-    <div class="form-group form-group-description">
-        <label for="description">Description</label>
-        <textarea id="description" name="description" rows="3" required></textarea>
+    <div class="form-control">
+        <label class="label" for="description">
+            <span class="label-text">Description</span>
+        </label>
+        <textarea id="description" name="description" rows="3" required class="textarea textarea-bordered"></textarea>
     </div>
-    <div class="form-group form-group-category">
-        <label for="category">Category</label>
-        <input id="category" type="text" name="category" required>
+    <div class="form-control">
+        <label class="label" for="category">
+            <span class="label-text">Category</span>
+        </label>
+        <input id="category" type="text" name="category" required class="input input-bordered"/>
     </div>
-    <div class="form-group form-group-weight">
-        <label for="weight">Weight (g)</label>
-        <input id="weight" type="number" step="0.01" name="weight" required>
+    <div class="form-control">
+        <label class="label" for="weight">
+            <span class="label-text">Weight (g)</span>
+        </label>
+        <input id="weight" type="number" step="0.01" name="weight" required class="input input-bordered"/>
     </div>
-    <div class="form-group form-group-price">
-        <label for="price">Price</label>
-        <input id="price" type="number" step="0.01" name="unitPrice" required>
+    <div class="form-control">
+        <label class="label" for="price">
+            <span class="label-text">Price</span>
+        </label>
+        <input id="price" type="number" step="0.01" name="unitPrice" required class="input input-bordered"/>
     </div>
-    <div class="form-group-button">
-        <button type="submit">Add Product</button>
+    <div class="form-control mt-6">
+        <button type="submit" class="btn btn-primary">Add Product</button>
     </div>
 </form>
