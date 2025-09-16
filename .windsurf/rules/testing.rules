@@ -1,2 +1,5 @@
+- Every feature and data transformation must have unit tests.
+- Repository and entity logic must have isolated integration tests with Postgres.
+- Use mocks/stubs for any external/database dependencies in unit tests.
 - Use the ./mvnw verify command to run the full test suite, including both unit tests (*Test.kt) and integration tests (*IT.kt). The test phase only runs unit tests.
 - When writing integration tests with RestAssured, to simulate a request where an optional header is absent, omit the .header() call entirely. Do not pass null, as this can cause exceptions.

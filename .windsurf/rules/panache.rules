@@ -2,3 +2,10 @@
 - Favor constructor initialization of entity properties; minimize use of setters.
 - To preserve domain model immutability, create a separate, mutable entity class for persistence (e.g., `ProductEntity`). Use a dedicated mapper to convert between the pure domain model and the persistence entity.
 - For case-insensitive searches, use the standard SQL lower() function instead of database-specific operators like ilike to ensure query portability.
+- When annotating constructor parameters that are also properties (e.g., `val foo: Bar`), always explicitly specify the annotation target if the compiler warns about ambiguity.
+- For annotations like `@Location` that are meant for constructor parameters, use the `@param:` target:
+  ```kotlin
+  class MyClass(@param:Location("...") val foo: Bar)
+  ```
+- Do not use `@property:` unless the annotation is intended for the property.
+- Reference: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)

@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
 
 @Path("/udemy")
-class UdemyResource(@Location("udemy/udemy.html") private val udemy: Template) {
+class UdemyResource(@param:Location("udemy/udemy.html") private val udemy: Template) {
 
     @Location("udemy/_learn-more.qute.html")
     lateinit var learnMoreTemplate: Template

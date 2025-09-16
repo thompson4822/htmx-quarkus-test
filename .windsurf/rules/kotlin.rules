@@ -1,0 +1,34 @@
+## Kotlin Style Rules
+- Use data-oriented design: prefer data classes, value classes, and ADTs.
+- All entity and model properties must be `val` unless mutable state is required for JPA/Hibernate integration.
+- Use sealed classes for modeling domain hierarchies and events.
+- Avoid mutable properties and collections within models and domain classes.
+- Adhere to idiomatic Kotlin design and minimize boilerplate.
+- Document any mutable state rationale in code comments.
+- Structure packages by feature (e.g., com.company.product) rather than by layer (e.g., com.company.entities) to promote high cohesion and modularity.
+
+## Additional Kotlin Rules
+1. **Explicit Annotation Targets**
+   - When annotating constructor parameters that are also properties, always explicitly specify the annotation target if the compiler warns about ambiguity (e.g., use `@param:` for constructor parameter annotations).
+   - Reference: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)
+
+2. **Null Safety**
+   - Prefer non-nullable types by default. Only use nullable types (`?`) when null is a valid and expected value.
+
+3. **Collection Immutability**
+   - Use immutable collections (`listOf`, `setOf`, `mapOf`) by default. Only use mutable collections when mutation is required and document the rationale.
+
+4. **Visibility Modifiers**
+   - Use the most restrictive visibility possible (`private` > `internal` > `protected` > `public`). Avoid public APIs unless necessary.
+
+5. **Extension Functions**
+   - Use extension functions to add utility methods to existing types, but avoid polluting the global namespace with too many extensions.
+
+6. **Coroutines**
+   - Use coroutines for asynchronous work. Prefer structured concurrency and avoid launching coroutines in the global scope.
+
+7. **Companion Objects**
+   - Use companion objects for static members and factory methods, but avoid overusing them for general utility code.
+
+8. **Standard Library Functions**
+   - Prefer Kotlin standard library functions (e.g., `let`, `apply`, `run`, `with`, `also`) for concise and idiomatic code.
