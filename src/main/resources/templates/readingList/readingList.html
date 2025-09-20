@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading List</title>
+    <script src="https://unpkg.com/htmx.org@2.0.3" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="p-8 bg-base-200">
+    <div class="navbar bg-base-100 shadow-xl rounded-box mb-8">
+        <a class="btn btn-ghost text-xl">Reading List</a>
+    </div>
+
+    <main class="container mx-auto grid grid-cols-1 gap-8">
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">My Books</h2>
+                <div id="book-list" class="book-list">
+                    <button hx-get="/reading-list/books" hx-target="#book-list" hx-swap="innerHTML" class="btn btn-primary">Show Books</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">Add a New Book</h2>
+                <div class="add-book-form">
+                    <!-- The form to add a new book will go here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-8">
+        <aside>
+            <p>Copyright 2024 - All right reserved</p>
+        </aside>
+    </footer>
+</body>
+</html>
