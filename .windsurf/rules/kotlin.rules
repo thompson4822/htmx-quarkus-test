@@ -32,3 +32,27 @@
 
 8. **Standard Library Functions**
    - Prefer Kotlin standard library functions (e.g., `let`, `apply`, `run`, `with`, `also`) for concise and idiomatic code.
+
+# Kotlin JPA Entities Must Be `open`
+
+Kotlin classes are `final` by default. For Hibernate/Panache to create performance-enhancing proxies (e.g., for lazy loading), your JPA entity classes must be extensible.
+
+If you see warnings like "Could not generate an enhanced proxy for entity... as it's final," it means your entities are not `open`.
+
+The standard solution in a Quarkus/Maven project is to use the `kotlin-maven-plugin` with the `all-open` compiler plugin. Ensure your [pom.xml](cci:7://file:///home/steve/QuarkusProjects/htmx-test/pom.xml:0:0-0:0) is configured to automatically open any class annotated with `@Entity`.
+
+```xml
+<plugin>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-maven-plugin</artifactId>
+    ...
+    <configuration>
+        <compilerPlugins>
+            <plugin>all-open</plugin>
+        </compilerPlugins>
+        <pluginOptions>
+            <!-- This line makes entities open -->
+            <option>all-open:annotation=jakarta.persistence.Entity</option>
+        </pluginOptions>
+    </configuration>
+</plugin>

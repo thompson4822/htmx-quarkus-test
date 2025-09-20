@@ -9,3 +9,4 @@
     - Include .qute in their filename (e.g., _my-fragment.qute.html).
     - Never be a complete HTML document; they must not contain <html> or <body> tags.
     - Be prefixed with an underscore (_) to signify they are partials not meant to be rendered directly.
+- Use `!= null` for Null Checks in Qute, because this `{#if previousPage is not null}` is invalid syntax and will cause a rendering error because the template engine will look for a variable named "not".

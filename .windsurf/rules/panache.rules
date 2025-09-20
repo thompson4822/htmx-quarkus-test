@@ -1,4 +1,6 @@
 - Extend PanacheEntity or PanacheEntityBase for database entities. Place query logic in companion objects or repositories.
+- Use `open` for JPA entities to enable Hibernate proxies for lazy loading.
+- Always favor PanacheQuery objects for efficient query execution.
 - Favor constructor initialization of entity properties; minimize use of setters.
 - To decouple the persistence layer from the view/API layer, create Data Transfer Objects (DTOs) and use a dedicated Mapper class to convert between entities and DTOs.
 - Perform data formatting and presentation-specific logic within the Mapper class, not in the Qute template. For example, a set of author entities should be converted to a formatted string in the mapper before being passed to the view.
