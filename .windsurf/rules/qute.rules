@@ -1,10 +1,10 @@
-- Use Qute for SSR templates; avoid stateful/render logic in templates.
+- **Keep Templates Logic-Less:** Templates should bind to simple Data Transfer Objects (DTOs) that are pre-formatted for the view. Avoid complex expressions or data manipulation (e.g., stream operations, complex formatting) within the template file itself. This logic belongs in a Mapper or service layer before the data is passed to the template.
 - Write Qute in templates files instead of in resources or controllers.
 - Use Qute's data binding to pass data to templates.
 - For Kotlin value classes, use Template Extension Methods to expose their properties to the template.
 - Extract CSS from Qute templates into separate .css files located in src/main/resources/META-INF/resources/css/. Avoid large inline <style> blocks to improve maintainability and enable browser caching.
 - All HTML-producing files, whether static or dynamic, will be treated as Qute templates and located within src/main/resources/templates. Templates must be grouped by feature into subdirectories that mirror the package structure (e.g., templates for com.sthompson.product go in templates/products/).
-- Always use JAX-RS endpoints (e.g., @Path(\"/products\")) to serve web pages. Avoid exposing file extensions like .html in user-facing URLs. The endpoint is responsible for rendering the appropriate Qute template.
+- Always use JAX-RS endpoints (e.g., @Path("/products")) to serve web pages. Avoid exposing file extensions like .html in user-facing URLs. The endpoint is responsible for rendering the appropriate Qute template.
 - Qute fragments (partials) must be clearly distinguished from full-page templates. Fragments must:
     - Include .qute in their filename (e.g., _my-fragment.qute.html).
     - Never be a complete HTML document; they must not contain <html> or <body> tags.

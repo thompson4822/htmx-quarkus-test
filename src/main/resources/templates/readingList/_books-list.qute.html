@@ -1,5 +1,5 @@
 <!-- List of books -->
-{@java.util.List<com.sthompson.readingList.BookEntity> books}
+{@java.util.List<com.sthompson.readingList.Book> books}
 <div id="book-list">
     {#if books.isEmpty}
         <div class="alert alert-info">
@@ -18,7 +18,7 @@
                 {#for book in books}
                 <tr>
                     <td>{book.title}</td>
-                    <td>{book.authors}</td>
+                    <td>{book.authorsFormatted}</td>
                 </tr>
                 {/for}
             </tbody>
