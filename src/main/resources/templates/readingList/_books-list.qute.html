@@ -1,20 +1,5 @@
-<!-- List of books -->
 {@java.util.List<com.sthompson.readingList.Book> books}
-{@java.lang.Integer nextPage}
 
 {#for book in books}
     {#include readingList/_book-row.qute.html book=book /}
 {/for}
-
-{#if nextPage}
-<tr>
-    <td colspan="2" class="text-center">
-        <button class="btn btn-primary btn-sm" 
-                hx-get="/reading-list/books?page={nextPage}" 
-                hx-target="closest tr" 
-                hx-swap="outerHTML">
-            Load More
-        </button>
-    </td>
-</tr>
-{/if}

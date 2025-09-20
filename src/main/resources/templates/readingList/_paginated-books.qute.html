@@ -1,0 +1,40 @@
+{@java.util.List<com.sthompson.readingList.Book> books}
+{@java.lang.Integer nextPage}
+{@java.lang.Integer previousPage}
+{@java.lang.Integer currentPage}
+
+<!-- This is a "smart" component that knows about pagination -->
+
+<!-- First, include the "dumb" component to render the rows -->
+{#include readingList/_books-list.qute.html books=books /}
+
+<!-- Then, render the pagination controls -->
+<tr>
+    <td colspan="2">
+        <div class="join flex justify-center">
+            {#if previousPage != null}
+                <button class="join-item btn" 
+                        hx-get="/reading-list/books?page={previousPage}" 
+                        hx-target="#book-table-body" 
+                        hx-swap="innerHTML">
+                    «
+                </button>
+            {#else}
+                <button class="join-item btn btn-disabled">«</button>
+            {/if}
+
+            <button class="join-item btn">Page {currentPage + 1}</button>
+
+            {#if nextPage != null}
+                <button class="join-item btn" 
+                        hx-get="/reading-list/books?page={nextPage}" 
+                        hx-target="#book-table-body" 
+                        hx-swap="innerHTML">
+                    »
+                </button>
+            {#else}
+                <button class="join-item btn btn-disabled">»</button>
+            {/if}
+        </div>
+    </td>
+</tr>

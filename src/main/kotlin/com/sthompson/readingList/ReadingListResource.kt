@@ -20,10 +20,10 @@ class ReadingListResource {
     @Location("readingList/readingList.html")
     lateinit var readingListTemplate: Template
 
-    // HTMX fragment for getting a list of books
+    // This is the new "smart" component that handles pagination
     @Inject
-    @Location("readingList/_books-list.qute.html")
-    lateinit var booksListTemplate: Template
+    @Location("readingList/_paginated-books.qute.html")
+    lateinit var paginatedBooksTemplate: Template
 
     @Inject
     lateinit var bookMapper: BookMapper
@@ -38,7 +38,7 @@ class ReadingListResource {
         return readingListTemplate.instance()
     }
 
-    // HTMX fragment for getting a list of books
+    // This endpoint now returns the full paginated books component
     @GET
     @Path("/books")
     @Produces(MediaType.TEXT_HTML)
@@ -52,9 +52,14 @@ class ReadingListResource {
         val hasNextPage = (page + 1) * PAGE_SIZE < totalBooks
         val nextPage = if (hasNextPage) page + 1 else null
 
-        return booksListTemplate.data(
+        val hasPreviousPage = page > 0
+        val previousPage = if (hasPreviousPage) page - 1 else null
+
+        return paginatedBooksTemplate.data(
             "books", books,
-            "nextPage", nextPage
+            "nextPage", nextPage,
+            "previousPage", previousPage,
+            "currentPage", page
         )
     }
 }
