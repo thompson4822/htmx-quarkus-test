@@ -38,6 +38,10 @@ class ProductResource {
     lateinit var addProductFormTemplate: Template
 
     @Inject
+    @Location("products/new-product.html")
+    lateinit var newProductTemplate: Template
+
+    @Inject
     lateinit var productMapper: ProductMapper
 
     /**
@@ -71,6 +75,16 @@ class ProductResource {
             productsTemplate
         }
         return template.data("products", domainProducts)
+    }
+
+    /**
+     * Serves the full page for adding a new product.
+     */
+    @GET
+    @Path("/new")
+    @Produces(MediaType.TEXT_HTML)
+    fun addNewProductPage(): TemplateInstance {
+        return newProductTemplate.instance()
     }
 
     /**

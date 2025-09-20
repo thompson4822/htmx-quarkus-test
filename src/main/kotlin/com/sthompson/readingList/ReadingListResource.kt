@@ -8,7 +8,10 @@ import jakarta.transaction.Transactional
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
+import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.DefaultValue
 import jakarta.ws.rs.core.MediaType
+import io.quarkus.panache.common.Page
 
 @Path("/reading-list")
 class ReadingListResource {
@@ -25,6 +28,10 @@ class ReadingListResource {
     @Inject
     lateinit var bookMapper: BookMapper
 
+    private companion object {
+        const val PAGE_SIZE = 5
+    }
+
     @GET
     @Produces(MediaType.TEXT_HTML)
     fun getReadingList(): TemplateInstance {
@@ -36,8 +43,18 @@ class ReadingListResource {
     @Path("/books")
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    fun getBooks(): TemplateInstance {
-        val books = BookEntity.listAll().map { bookMapper.toDto(it as BookEntity) }
-        return booksListTemplate.data("books", books)
+    fun getBooks(@QueryParam("page") @DefaultValue("0") page: Int): TemplateInstance {
+        val booksQuery = BookEntity.findAll()
+        val totalBooks = booksQuery.count()
+        val books = booksQuery.page(Page.of(page, PAGE_SIZE)).list()
+            .map { bookMapper.toDto(it) }
+
+        val hasNextPage = (page + 1) * PAGE_SIZE < totalBooks
+        val nextPage = if (hasNextPage) page + 1 else null
+
+        return booksListTemplate.data(
+            "books", books,
+            "nextPage", nextPage
+        )
     }
 }

@@ -17,18 +17,26 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title">My Books</h2>
-                <div id="book-list" class="book-list">
-                    <button hx-get="/reading-list/books" hx-target="#book-list" hx-swap="innerHTML" class="btn btn-primary">Show Books</button>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                            </tr>
+                        </thead>
+                        <tbody id="book-table-body" hx-get="/reading-list/books" hx-trigger="load" hx-swap="innerHTML">
+                            <!-- Initial book rows and load more button will be loaded here -->
+                            <tr><td colspan="2" class="text-center"><span class="loading loading-spinner loading-lg"></span></td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <h2 class="card-title">Add a New Book</h2>
-                <div class="add-book-form">
-                    <!-- The form to add a new book will go here -->
-                </div>
+                <!-- The form to add a new book will go here -->
             </div>
         </div>
     </main>

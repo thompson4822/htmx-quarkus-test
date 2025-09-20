@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product</title>
+    <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.1">
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZNEU2MKMCVBFAp/AyrSVSNBX3lNxUvDSwN" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <h1>Add a New Product</h1>
+        <div id="add-product-form-container">
+            {#include products/_add-product-form.qute.html /}
+        </div>
+        <p><a href="/products">Back to Product List</a></p>
+    </main>
+</body>
+</html>
